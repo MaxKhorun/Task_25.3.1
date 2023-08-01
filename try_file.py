@@ -49,9 +49,24 @@ def check(log_in_func):
 
     pets_header_text = pets_header.text
     w_driver.quit()
+    pets_header_text = ''
+
+    """t = "M.Kh \
+Питомцев: 109 \
+Друзей: 0 \
+Сообщений: 0 "
+
+
+t = t[t.index('в') + 1:t.index('Д')]
+numb_list = [i for i in t if i.isdigit()]
+nums = int(''.join(numb_list))
+print(t)
+print(nums)"""
     print(pets_header_text, '\n', type(pets_header_text),
           '\n', len(pets_header_text))
+
     numbers = {}
+
     for i in pets_header_text:
         if i.isdigit():
             numbers[i] = i
