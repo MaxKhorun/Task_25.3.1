@@ -42,28 +42,20 @@ def log_in_func(set_driver):
     return driver
 
 
-def check(log_in_func):
+def check_pets(log_in_func):
     w_driver = log_in_func
     # amount_of_pets = int
     pets_header = w_driver.find_element(By.CSS_SELECTOR, '.\\.col-sm-4.left')
+    pets_header = pets_header.text
+    pets_header = pets_header[pets_header.index('в')+1:pets_header.index('Д')]
+    temp_numlist_from_txt = [i for i in pets_header if i.isdigit()]
+    amount_of_pets = int(''.join(temp_numlist_from_txt))
 
-    txt = pets_header.text
+    list_of_pets = w_driver.find_elements(By.CSS_SELECTOR, ".table>tbody>tr") #selector to name field
+    count_pets = list_of_pets
+    print(amount_of_pets)
+    print(count_pets)
     w_driver.quit()
-
-    txt = txt[txt.index('в')+1:txt.index('Д')]
-    temp_numlist_from_txt = [i for i in txt if i.isdigit()]
-    amountof_pets = int(''.join(temp_numlist_from_txt))
-
-    """t = "M.Kh \
-Питомцев: 109 \
-Друзей: 0 \
-Сообщений: 0 "
-
-
-t = t[t.index('в') + 1:t.index('Д')]
-numb_list = [i for i in t if i.isdigit()]
-nums = int(''.join(numb_list))
-print(t)
-print(nums)"""
-
-check(log_in_func(set_driver()))
+    # assert amount_of_pets == list_of_pets
+    # return amount_of_pets
+check_pets(log_in_func(set_driver()))
