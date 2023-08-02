@@ -47,9 +47,12 @@ def check(log_in_func):
     # amount_of_pets = int
     pets_header = w_driver.find_element(By.CSS_SELECTOR, '.\\.col-sm-4.left')
 
-    pets_header_text = pets_header.text
+    txt = pets_header.text
     w_driver.quit()
-    pets_header_text = ''
+
+    txt = txt[txt.index('в')+1:txt.index('Д')]
+    temp_numlist_from_txt = [i for i in txt if i.isdigit()]
+    amountof_pets = int(''.join(temp_numlist_from_txt))
 
     """t = "M.Kh \
 Питомцев: 109 \
@@ -62,17 +65,5 @@ numb_list = [i for i in t if i.isdigit()]
 nums = int(''.join(numb_list))
 print(t)
 print(nums)"""
-    print(pets_header_text, '\n', type(pets_header_text),
-          '\n', len(pets_header_text))
-
-    numbers = {}
-
-    for i in pets_header_text:
-        if i.isdigit():
-            numbers[i] = i
-    print(numbers.values())
-
-    # for el in pets_header:
-    #     print(el.text)
 
 check(log_in_func(set_driver()))
