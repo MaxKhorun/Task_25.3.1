@@ -27,15 +27,20 @@ def log_in_func(set_driver):
     driver = set_driver
     driver.get(base_url+'login')
 
-    driver.find_element(By.CSS_SELECTOR, 'input#email').clear()
-    driver.find_element(By.CSS_SELECTOR, 'input#email').send_keys(login_email)
-    driver.find_element(By.CSS_SELECTOR, 'input#pass').clear()
-    driver.find_element(By.CSS_SELECTOR, 'input#pass').send_keys(login_pass)
-    driver.find_element(By.XPATH, '//button[@type="submit"]').click()
+    driver.find_element(By.ID, 'email').clear()
+    driver.find_element(By.ID, 'email').send_keys(login_email)
+    driver.find_element(By.ID, 'pass').clear()
+    driver.find_element(By.ID, 'pass').send_keys(login_pass)
+    driver.find_element(By.CSS_SELECTOR, '//button[type="submit"]').click()
 
     driver.find_element(By.CSS_SELECTOR, "a[href='/my_pets']").click()
 
     assert driver.current_url == f'{base_url}my_pets'
-    return driver
+    assert driver.find_element(By.TAG_NAME, 'h1').text == 'PetFriends'
+
+    yield driver
+
+    driver.quit()
+
 
 

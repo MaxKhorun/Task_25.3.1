@@ -17,7 +17,8 @@ def test_verify_quantity(log_in_func):
     w_driver.quit()
     assert amount_of_pets == len(list_of_pets)
 
-
+def test_all_pets_object():
+    pass
 
 
 # def test_mypets_correct_amount(log_in_func):
