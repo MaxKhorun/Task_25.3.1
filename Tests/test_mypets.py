@@ -15,10 +15,17 @@ def test_verify_quantity(log_in_func):
     list_of_pets = w_driver.find_elements(By.CSS_SELECTOR, "tbody>tr")
             #looking for array of pets on web-page
     w_driver.quit()
+
     assert amount_of_pets == len(list_of_pets)
 
-def test_all_pets_object():
-    pass
+def test_all_pets_object(log_in_func):
+
+    driver = log_in_func
+    names = driver.find_elements(By.CSS_SELECTOR, "tbody>tr")
+    images = driver.find_elements(By.TAG_NAME, 'img')
+    descriptions = driver.find_elements(By.CSS_SELECTOR, 'tbody>tr>td')
+
+    assert 'friend' in driver.find_elements(By.CSS_SELECTOR, 'tbody>tr>td')
 
 
 # def test_mypets_correct_amount(log_in_func):
