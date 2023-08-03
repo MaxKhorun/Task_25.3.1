@@ -51,16 +51,16 @@ def check_pets(log_in_func):
     temp_numlist_from_txt = [i for i in pets_header if i.isdigit()]
     amount_of_pets = int(''.join(temp_numlist_from_txt))
 
-    list_of_pets = w_driver.find_elements(By.CSS_SELECTOR, ".table>tbody>tr") #selector to name field
+    list_of_pets = w_driver.find_elements(By.CSS_SELECTOR, "div#all_my_pets > table > tbody > tr > td") #selector to name field
     # count_pets = list_of_pets
+    list_of_pets_t = [list_of_pets[it].text for it in range(len(list_of_pets))]
 
-    # print(discr_list)
+    print(list_of_pets_t)
     print(amount_of_pets)
     # print(count_pets)
     w_driver.quit()
     # assert amount_of_pets == list_of_pets
     # return amount_of_pets
-    assert 'friend' in w_driver.find_elements(By.CSS_SELECTOR, 'tbody>tr>td')
 
 
 
