@@ -21,11 +21,11 @@ def test_verify_quantity(log_in_func):
 def test_all_pets_object(log_in_func):
 
     driver = log_in_func
-    names = driver.find_elements(By.CSS_SELECTOR, "tbody>tr")
+    names = driver.find_elements(By.CSS_SELECTOR, "div#all_my_pets > table")
     images = driver.find_elements(By.TAG_NAME, 'img')
     descriptions = driver.find_elements(By.CSS_SELECTOR, 'tbody>tr>td')
 
-    assert 'friend' in driver.find_elements(By.CSS_SELECTOR, 'tbody>tr>td')
+    assert 'friend' in driver.find_elements(By.CSS_SELECTOR, 'div#all_my_pets > table').text
 
 
 # def test_mypets_correct_amount(log_in_func):
