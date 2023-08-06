@@ -21,29 +21,29 @@ def test_verify_quantity(log_in_func):
 def test_all_pets_object(log_in_func):
 
     driver = log_in_func
-    names = driver.find_elements(By.CSS_SELECTOR, "div#all_my_pets > table > tbody > tr > td")[0]
-    images = driver.find_elements(By.TAG_NAME, 'img')
-    descriptions = driver.find_elements(By.CSS_SELECTOR, 'tbody>tr>td')
+
+    all_images = driver.find_elements(By.CSS_SELECTOR, 'tbody>tr>th>img') #получили все картинки
+    descriptions = driver.find_elements(By.CSS_SELECTOR, 'tbody>tr>td') #получили все данные о животных списком
+
+    pets_info = {
+        'names': [descriptions[it].text for it in range(0, len(descriptions), 4)],
+        'breed': [descriptions[it].text for it in range(1, len(descriptions), 4)],
+        'age': [descriptions[it].text for it in range(2, len(descriptions), 4)]
+    }
+
+    for it in range(len(descriptions)):
+
+        assert all_images[it].get_attribute('src') != ''
+        assert (all_images[it].get_attribute('src') == bool) > len(pets_info['names'])
+        assert len(pets_info['names']) == len(set(pets_info['names']))
+        assert pets_info['names'] != ''
+        assert pets_info['breed'] != ''
+        assert pets_info['age'] != ''
 
 
-
-# def test_mypets_correct_amount(log_in_func):
-#     w_driver = log_in_func
-#     amount_of_pets = int
-#     pets_header = w_driver.find_element(By.TAG_NAME, 'h2')
-#     for el in pets_header:
-#         print(el.text)
-#
-#     amounts_of_cards = int
-#     """запросить значение с поля _Питомцы_, запросить кол-во карточек ->n сравнить цифры. создать своё исключение, возможно"""
-#     w_driver.find_element(By.XPATH, "//h1[contains(text(), 'PetFriends')]")
-#     assert w_driver.current_url == f'{base_url}my_pets'
 
 
 """Проверка, что у пвины питомцев есть фотографии"""
-
-def check_all_photos():
-    pass
 
 """Проверить, что у всехз питомцев есть данные в полях: _имя_, _возраст_, _порода_"""
 
