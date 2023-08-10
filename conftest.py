@@ -1,6 +1,3 @@
-import time
-from datetime import datetime
-
 import pytest
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
@@ -13,19 +10,15 @@ from selenium.webdriver.common.by import By
 fixt = pytest.fixture
 base_url = 'https://petfriends.skillfactory.ru/'
 
-class WaitDriver():
-    def wait_setup(self, driver):
 
-        self.wait = WebDriverWait(driver, 5)
-
-@fixt(params=["Chrome", "Firefox", "Edge"], scope="class")
+@fixt(params=["Chrome", "Firefox", "Edge"], scope="function")
 def set_driver(request):
 
     """Создание и настройка драйвера для дальнейего использования в др. фикстурах и тестах"""
 
     if request.param == "Chrome":
         options = webdriver.ChromeOptions()
-        options.headless = True
+        options.add_argument('--headless')
         options.add_argument("--no-sandbox")
         options.add_argument("--disable-gpu")
         w_driver = webdriver.Chrome(options=options)
@@ -36,7 +29,7 @@ def set_driver(request):
         w_driver = webdriver.Firefox(options=options)
     if request.param == "Edge":
         options = webdriver.EdgeOptions()
-        options.headless = True
+        options.add_argument('--headless')
         options.add_argument("--no-sandbox")
         options.add_argument("--disable-gpu")
         w_driver = webdriver.Edge(options=options)
@@ -54,21 +47,18 @@ def log_in_func(set_driver):
 
     WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.ID, 'email'))).clear()
     driver.find_element(By.ID, 'email').send_keys(login_email)
-    # driver.find_element(By.ID, 'email').send_keys(login_email)
+
     WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.ID, 'pass'))).clear()
-    # driver.find_element(By.ID, 'pass').send_keys(login_email)
-    # driver.find_element(By.ID, 'pass').clear()
     driver.find_element(By.ID, 'pass').send_keys(login_pass)
 
     WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.CSS_SELECTOR, 'button[type="submit"]')))
-
     driver.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
 
     WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.TAG_NAME, 'h1')))
     assert driver.find_element(By.TAG_NAME, 'h1').text == "PetFriends"
 
     WebDriverWait(driver, 7).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "a[href='/my_pets']")))
-    my_pets_btn = driver.find_element(By.CSS_SELECTOR, "a[href='/my_pets']").click()
+    driver.find_element(By.CSS_SELECTOR, "a[href='/my_pets']").click()
 
     assert driver.current_url == f'{base_url}my_pets'
 
