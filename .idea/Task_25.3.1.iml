@@ -9,6 +9,7 @@
     <orderEntry type="module" module-name="QAP_ui-tests-example" />
     <orderEntry type="module" module-name="Page_object_Unit_26" />
     <orderEntry type="module" module-name="PET_API_autotest" />
+    <orderEntry type="module" module-name="Sirius_Auto_Test" />
   </component>
   <component name="PyDocumentationSettings">
     <option name="format" value="PLAIN" />
